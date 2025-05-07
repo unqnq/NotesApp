@@ -27,7 +27,7 @@ body
     list-style: none;
     background: var(--note-bg);
     color: var(--text-color);
-    height: 250px;
+    height: 270px;
     border-radius: 5px;
     padding: 15px 20px 20px;
     transition: background-color 0.3s ease, transform 0.3s ease;
@@ -39,16 +39,15 @@ body
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
 .add-box .icon 
 {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 30%;
-    width: 30%;
+    height: 100px;
+    width: 100px;
     font-size: calc(var(--font-size-def) * 2.5);
     border-radius: 50%;
     justify-content: center;
@@ -65,6 +64,10 @@ body
 
 }
 
+.note
+{
+    box-shadow: var(--note-shadow);
+}
 .note p
 {
     margin: 0;
@@ -74,6 +77,48 @@ body
 }
 .note span
 {
+    /* display: block;
+    margin-top: 5px; */
     color: var(--text-color);
     font-size: calc(var(--font-size-def) * 0.8);
+}
+
+.note .bottom-content
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--text-color);
+    padding-top: 10px;
+}
+
+.bottom-content span
+{
+    color: var(--text-color);
+    font-size: calc(var(--font-size-def) * 0.6);
+    cursor: pointer;
+}
+
+.bottom-content .settings i
+{
+    cursor: pointer;
+}
+
+.settings .menu
+{
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 10;
+    padding: 5px;
+    border-radius: 6px;
+    background: var(--note-bg);
+}
+
+.settings .menu li
+{
+    height: 25px;
+    border-radius: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
