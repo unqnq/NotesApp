@@ -67,6 +67,38 @@ body
 .note
 {
     box-shadow: var(--note-shadow);
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note .details {
+  max-height: 300px;
+  overflow-y: auto;
+
+}
+.note .details span
+{
+  word-break: break-word;
+}
+
+.note .details::-webkit-scrollbar,
+.popup textarea::-webkit-scrollbar {
+  width: 0;
+}
+.note .details:hover::-webkit-scrollbar,
+.popup textarea:hover::-webkit-scrollbar {
+  width: 5px;
+}
+.note .details:hover::-webkit-scrollbar-track,
+.popup textarea:hover::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.note .details:hover::-webkit-scrollbar-thumb,
+.popup textarea:hover::-webkit-scrollbar-thumb {
+  background: #e6e6e6;
+  border-radius: 25px;
 }
 .note p
 {
@@ -77,8 +109,8 @@ body
 }
 .note span
 {
-    /* display: block;
-    margin-top: 5px; */
+    display: block;
+    margin-top: 5px;
     color: var(--text-color);
     font-size: calc(var(--font-size-def) * 0.8);
 }
@@ -112,6 +144,10 @@ body
     padding: 5px;
     border-radius: 6px;
     background: var(--note-bg);
+    z-index: 1;
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: transform 0.2s ease;
 }
 
 .settings .menu li
@@ -121,4 +157,151 @@ body
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
+}
+
+.menu p
+{
+    font-size: var(--font-size-def);
+}
+
+.menu li:hover 
+{
+    background: var(--bg-color);
+}
+
+.menu li i 
+{
+    padding-right: 8px;
+}
+
+.settings.show .menu 
+{
+    transform: scale(1);
+}
+
+.menu li:last-child 
+{
+    margin-bottom: 0;
+}
+
+.popup-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .popup-box .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  .popup-box,
+  .popup {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+  }
+  .popup-box.show,
+  .popup-box.show .popup {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .popup-box.show .popup {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .popup .content {
+    border-radius: 5px;
+    background: var(--bg-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+    font-size: var(--font-size-def);
+  }
+  .content header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--note-bg);
+  }
+  .content header p {
+    color: var(--title-color);
+    font-size: calc(var(--font-size-def) * 1.2);
+    font-weight: 500;
+  }
+  .content header i {
+    color: var(--title-color);
+    cursor: pointer;
+    font-size: calc(var(--font-size-def) * 1.5);
+  }
+  .content form {
+    margin: 15px 25px 35px;
+  }
+  .content form .row {
+    margin-bottom: 20px;
+  }
+  form .row label {
+    font-size: var(--font-size-def);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--title-color);
+  }
+  form :where(input, textarea) {
+    height: 50px;
+    width: 95%;
+    outline: none;
+    font-size: var(--font-size-def);
+    padding: 0 15px;
+    border-radius: 4px;
+    border: 1px solid var(--note-bg);
+    color: var(--text-color);
+    background-color: var(--note-bg);
+  }
+  form :where(input, textarea):focus {
+    box-shadow: 0 2px 4px var(--note-bg);
+  }
+  form .row textarea {
+    height: 150px;
+    resize: none;
+    padding: 8px 15px;
+  }
+  form button {
+    width: 100%;
+    height: 50px;
+    color: var(--title-color);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: calc(var(--font-size-def) * 1);
+    border-radius: 6px;
+    background: var(--note-bg);
+    margin-bottom: var(--font-size-def);
+  }
+  @media (max-width: 660px) {
+    .wrapper {
+      margin: 15px;
+      gap: 15px;
+      grid-template-columns: repeat(auto-fill, 100%);
+    }
+    .popup-box .popup {
+      max-width: calc(100% - 15px);
+    }
+    .bottom-content .settings i {
+      font-size: 17px;
+    }
+  }
+
+.note.archived .details p,
+.note.archived .details span {
+  text-decoration: line-through;
+  font-style: italic;
 }
