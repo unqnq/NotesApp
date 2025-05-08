@@ -286,7 +286,65 @@ body
     background: var(--note-bg);
     margin-bottom: var(--font-size-def);
   }
-  @media (max-width: 660px) {
+
+.note.archived .details p,
+.note.archived .details span {
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+
+/* Стилізація тільки для label з id="theme" */
+#theme {
+  font-size: var(--font-size-def);
+  font-weight: 500;
+  color: var(--title-color);
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* Стилізація тільки для select з id="themeSelector" */
+#themeSelector {
+  background-color: var(--note-bg);
+  color: var(--text-color);
+  font-size: var(--font-size-def);
+  padding: 10px 15px;
+  border: 1px solid var(--note-bg);
+  border-radius: 5px;
+  outline: none;
+  width: 200px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Стилізація при фокусуванні для select#themeSelector */
+#themeSelector:focus {
+  background-color: var(--note-bg); /* Залишити колір як у звичайному стані */
+  border-color: var(--note-shadow);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Стилізація для select з id="sortSelector" */
+#sortSelector {
+  background-color: var(--note-bg);
+  color: var(--text-color);
+  font-size: var(--font-size-def);
+  padding: 10px 15px;
+  border: 1px solid var(--note-bg);
+  border-radius: 5px;
+  outline: none;
+  width: 200px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Стилізація при фокусуванні для select#sortSelector */
+#sortSelector:focus {
+  background-color: var(--note-bg); /* Залишити колір як у звичайному стані */
+  border-color: var(--note-shadow);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 660px) {
     .wrapper {
       margin: 15px;
       gap: 15px;
@@ -300,8 +358,3 @@ body
     }
   }
 
-.note.archived .details p,
-.note.archived .details span {
-  text-decoration: line-through;
-  font-style: italic;
-}

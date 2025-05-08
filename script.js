@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', () =>
     }
     applyTheme(savedTheme);
     populateThemeSelector(savedTheme);
+
+    let savedSort = localStorage.getItem('sortMode') || 'default';
+    document.getElementById('sortSelector').value = savedSort;
+    showNotes();
+
+    document.getElementById('sortSelector').addEventListener('change', (e) => {
+      localStorage.setItem('sortMode', e.target.value);
+      showNotes();
+    });
 });
     
 function applyTheme(theme)
@@ -144,13 +153,26 @@ closeIcon.addEventListener("click", () => {
 function showNotes() {
   if (!notes) return;
   document.querySelectorAll(".note").forEach(li => li.remove());
-  let activeNotes = notes.filter(n => !n.archived);
-  let archivedNotes = notes.filter(n => n.archived);
 
-  notes.forEach((note, id) => {
+  let sortMode = document.getElementById('sortSelector')?.value || 'default';
+
+  let notesToShow = [];
+
+  if (sortMode === 'activeFirst') {
+    let activeNotes = notes.filter(n => !n.archived);
+    let archivedNotes = notes.filter(n => n.archived);
+    notesToShow = [...activeNotes, ...archivedNotes];
+  } else if (sortMode === 'archivedFirst') {
+    let activeNotes = notes.filter(n => !n.archived);
+    let archivedNotes = notes.filter(n => n.archived);
+    notesToShow = [...archivedNotes, ...activeNotes];
+  } 
+
+
+  notesToShow.forEach((note, displayIndex) => {
+    let realId = notes.indexOf(note);
 
     let filterDesc = note.description.replaceAll("\n", '<br/>');
-
     let noteClass = note.archived ? "archived" : "";
     let liTag = `<li class="note ${noteClass}">
                         <div class="details">
@@ -162,17 +184,19 @@ function showNotes() {
                             <div class="settings">
                                 <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
                                 <ul class="menu">
-                                    <li onclick="updateNote(${id}, '${note.title}', \`${filterDesc}\`)"><i class="uil uil-pen"></i>Edit</li>
-                                    <li onclick="deleteNote(${id})"><i class="uil uil-trash"></i>Delete</li>
-                                    <li onclick="toggleArchive(${id})"><i class="uil uil-archive"></i>${note.archived ? "Unarchive" : "Archive"}</li>
+                                    <li onclick="updateNote(${realId}, '${note.title}', \`${filterDesc}\`)"><i class="uil uil-pen"></i>Edit</li>
+                                    <li onclick="deleteNote(${realId})"><i class="uil uil-trash"></i>Delete</li>
+                                    <li onclick="toggleArchive(${realId})"><i class="uil uil-archive"></i>${note.archived ? "Unarchive" : "Archive"}</li>
                                 </ul>
                             </div>
                         </div>
                     </li>`;
     addBox.insertAdjacentHTML("afterend", liTag);
   });
+
   console.log(notes);
 }
+
 
 showNotes();
 
